@@ -22,6 +22,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 from inside import Relay
+from proxy_peer import ProxyPeer
 
 
 def private_json(path, data):
@@ -151,10 +152,10 @@ def connect_tcp(port):
 
 
 @contextlib.contextmanager
-def bridge(runtime, port, auth):
+def bridge(runtime, port, auth, *, connector=None):
     path = runtime / "bridge.sock"
     private_json(runtime / "client.json", {"auth": auth})
-    server = Relay(str(path), lambda: connect_tcp(port))
+    server = Relay(str(path), connector or (lambda: connect_tcp(port)))
     os.chmod(str(path), 0o600)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -283,23 +284,20 @@ def run_session(node, command, mihomo, builder=sandbox_command, runtime_parent=N
         old_int = signal.signal(signal.SIGINT, lambda *_: None)
         old_term = signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
         try:
-            for _ in range(100):
-                if proxy_process.poll() is not None:
-                    raise RuntimeError("专用代理未能启动；没有启动 Claude")
-                try:
-                    connect_tcp(port).close()
-                    break
-                except OSError:
-                    time.sleep(.05)
-            else:
-                raise RuntimeError("专用代理启动超时；没有启动 Claude")
-            with bridge(runtime, port, auth) as relay:
+            peer = ProxyPeer(proxy_process, port)
+            peer.wait_ready()
+            with bridge(runtime, port, auth, connector=peer.connect) as relay:
+                peer.on_failure = lambda: relay.close_connections(permanent=True)
                 if protection is not None:
-                    protection.prepare(runtime, port, auth, builder, env, launch_cwd)
+                    protection.prepare(runtime, peer, auth, builder, env, launch_cwd)
+                if not peer.listener_ok():
+                    peer.reject()
                 child = subprocess.Popen(builder(runtime, command, os.getcwd()),
                                          env=env, close_fds=True, cwd=launch_cwd)
                 while child.poll() is None:
                     failure = protection.failure() if protection is not None else None
+                    if not peer.listener_ok():
+                        failure = 'proxy_identity_lost'
                     if failure:
                         # Shut down the upstream before waiting for application
                         # cleanup; all old and newly queued tunnels lose egress.
@@ -307,10 +305,6 @@ def run_session(node, command, mihomo, builder=sandbox_command, runtime_parent=N
                         stop(proxy_process)
                         stop(child)
                         raise RuntimeError('网络检查/出口监测失败，已断网并停止 Claude: ' + failure)
-                    if proxy_process.poll() is not None:
-                        relay.close_connections()
-                        stop(child)
-                        raise RuntimeError("专用代理已退出，Claude 已停止；无直连回退")
                     time.sleep(.1)
                 return child.returncode
         finally:

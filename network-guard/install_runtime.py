@@ -10,7 +10,7 @@ import sys
 SOURCE = Path(__file__).resolve().parent
 STORAGE = Path('/mnt/example/runtime-data')
 FILES = ('guard.py','inside.py','parent_exec.py','session_watch.py','singularity_guard.py',
-         'singularity_entry.py','project_copy.py','project_direct.py','network_monitor.py','launch_protection.py',
+         'singularity_entry.py','project_copy.py','project_direct.py','network_monitor.py','launch_protection.py','proxy_peer.py',
          'relay_credentials.py','regional.py','browser_driver.js')
 
 

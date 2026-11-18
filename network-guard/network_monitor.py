@@ -1,9 +1,7 @@
 """Bounded proxy-only exit probes and a fail-closed monitoring lease."""
 import base64
-import http.client
 import ipaddress
 import json
-import ssl
 import threading
 import time
 
@@ -13,11 +11,10 @@ LEASE = 45.0
 PROBE_TIMEOUT = 10.0
 
 
-def probe_exit(port, auth):
+def probe_exit(peer, auth):
     # Explicit CONNECT to a loopback proxy. No environment proxy discovery,
     # NO_PROXY bypass, target-host local DNS, redirects, or direct fallback.
-    connection = http.client.HTTPSConnection('127.0.0.1', port, timeout=PROBE_TIMEOUT,
-                                             context=ssl.create_default_context())
+    connection = peer.https(PROBE_TIMEOUT)
     authorization = base64.b64encode(auth.encode()).decode()
     connection.set_tunnel(EXIT_HOST, 443, headers={'Proxy-Authorization': 'Basic ' + authorization})
     try:

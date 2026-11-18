@@ -50,11 +50,11 @@ class RegionalTests(unittest.TestCase):
 
     def test_proxy_json_ignores_environment_and_connects_only_to_private_proxy(self):
         with mock.patch.dict(os.environ, {'NO_PROXY': '*', 'HTTPS_PROXY': 'http://bad.invalid:1'}), \
-                mock.patch('regional.http.client.HTTPSConnection') as factory:
+                mock.patch('proxy_peer.http.client.HTTPSConnection') as factory:
             conn = factory.return_value
             conn.getresponse.return_value.status = 200
             conn.getresponse.return_value.read.return_value = b'{"success":true}'
-            self.assertEqual(regional.proxy_json(1234, 'dummy:auth', 'ipwho.is', '/8.8.8.8'), {'success': True})
+            self.assertEqual(regional.proxy_json(guard.ProxyPeer(mock.Mock(pid=1), 1234), 'dummy:auth', 'ipwho.is', '/8.8.8.8'), {'success': True})
             self.assertEqual(factory.call_args.args, ('127.0.0.1', 1234))
             self.assertEqual(conn.set_tunnel.call_args.args, ('ipwho.is', 443))
 

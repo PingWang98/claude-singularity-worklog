@@ -158,10 +158,10 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(m.failure(),'exit_address_changed')
 
     def test_probe_ignores_no_proxy_and_never_direct_connects(self):
-        with mock.patch.dict(os.environ,{'NO_PROXY':'*','HTTPS_PROXY':'http://evil.invalid:1'}), mock.patch('network_monitor.http.client.HTTPSConnection') as factory:
+        with mock.patch.dict(os.environ,{'NO_PROXY':'*','HTTPS_PROXY':'http://evil.invalid:1'}), mock.patch('proxy_peer.http.client.HTTPSConnection') as factory:
             conn=factory.return_value;conn.getresponse.return_value.status=200
             conn.getresponse.return_value.read.return_value=b'8.8.8.8'
-            self.assertEqual(probe_exit(1234,'dummy:auth'),'8.8.8.8')
+            self.assertEqual(probe_exit(guard.ProxyPeer(mock.Mock(pid=1), 1234),'dummy:auth'),'8.8.8.8')
             self.assertEqual(factory.call_args.args,('127.0.0.1',1234))
             self.assertEqual(conn.set_tunnel.call_args.args,('api.ipify.org',443))
 

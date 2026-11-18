@@ -11,7 +11,7 @@
 | base | 原 Anaconda Python 3.12.2，只读挂载 |
 | 区域数据 | Debian 签名仓库的 `locales-all` 私有解包 |
 | 浏览器 | Chromium 156.0.8078.79；已有 Playwright 1.57.0 |
-| 保护程序 | 只读发布版本 `4971490d2323c4a4` |
+| 保护程序 | 只读发布版本 `05edca592a088510` |
 
 公开源码使用示例布局。部署时将 `/mnt/example/runtime-data`、`/mnt/example/conda` 和 `/mnt/example/playwright/package` 换成自己的路径。设置部署默认模型或通过 `ANTHROPIC_MODEL` 指定模型。通过宿主环境提供凭据，或以 `CLAUDE_RELAY_PROFILE` 指定私有配置文件。以 `CLAUDE_PROXY_CONFIG` 指定代理配置。
 

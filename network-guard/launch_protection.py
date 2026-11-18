@@ -71,8 +71,8 @@ class Protection:
         self.check_process = None
         self.region_lookup = region_lookup
 
-    def prepare(self, runtime, port, auth, builder, env, launch_cwd):
-        self.monitor = ExitMonitor(lambda: self.probe(port, auth), expected=self.expected, audit=self.audit)
+    def prepare(self, runtime, peer, auth, builder, env, launch_cwd):
+        self.monitor = ExitMonitor(lambda: self.probe(peer, auth), expected=self.expected, audit=self.audit)
         self.monitor.start()
         if not self.monitor.ready.wait(15):
             raise RuntimeError('启动前出口检查超时；没有启动 Claude')
@@ -81,7 +81,7 @@ class Protection:
             raise RuntimeError('启动前出口检查失败: ' + failure)
         settings = None
         if hasattr(builder, 'set_region'):
-            settings = self.region_lookup(port, auth, self.monitor.expected)
+            settings = self.region_lookup(peer, auth, self.monitor.expected)
             builder.set_region(settings)
             self.monitor.record('region_resolved')
             print('claude-singularity: 出口地区 %s；时区 %s；语言 %s（自动）' %

@@ -1,8 +1,8 @@
 {
-  "release": "7c1abeb3a4490f64",
+  "release": "a62c180c07dfdb76",
   "scope": "public-source",
   "files": {
-    "guard.py": "1730d9bf2c92587c17e4dac47744379b8005a9b43bdc98af21410de2b25bad77",
+    "guard.py": "4d614d09abe9045853d97ad849af60ccc41ac8570ce5bd648f38e5e6fb148369",
     "inside.py": "f93cf6dcc18c356c02aadf7383f47d0cb75546b0acc5e3c967372c146dd64152",
     "parent_exec.py": "770c479a39a5eb28b8363c23a6d527f23a1ed2f23be9b9d506c1ea8bdd2724f2",
     "session_watch.py": "703be0a17f6c53986a75f4ee4bf3be0c8a200f4e7f9ed466d97c0cd7c6a2dc6a",
@@ -10,10 +10,11 @@
     "singularity_entry.py": "9a7262ecdbce3a88c9320cda23438b4d2a767876ba6d353a6bb872ccd46ad5e5",
     "project_copy.py": "4aad4725fc1ce2063ba02468bf0e41e2a6af246eb067c14ec444a5c9275bc2b8",
     "project_direct.py": "2dbc49143500f974b7c0d7d88df347f4c5b5600589cf019297d5cc7f7ad1db92",
-    "network_monitor.py": "807647f3c17c3066be24670337c924a9d276f611b441aebcd25ff0981e5b3bed",
-    "launch_protection.py": "43de3a4a6782ed23658b61496957782be4630ef156c2c77568094e458101e3fa",
+    "network_monitor.py": "58cc57a5c42d05d4fa45cc66945ff49f22444e95b98a11ff68e2f07d5764d14f",
+    "launch_protection.py": "6cf3c3dfbac0c8232a5145b5d258a2b128193489ebaa3db7497bceba3becf340",
     "relay_credentials.py": "0e6ea37251b534bbdde2fd84af4ca07de788cbb07c2f847a35e45c5158e90722",
-    "regional.py": "97f3ba5f1ed288560df5763a5ec114cf22f4dcad8024f3bba9a62b7311ea0868",
-    "browser_driver.js": "874299f8785ff06be5fbbbc0f43ac411c1dac19e44ef416f242ad8c1fdaaa01a"
+    "regional.py": "f559d68e4fed19b5cc67136bd0e7aee337eeb68559c4f12b75f85e456269ed48",
+    "browser_driver.js": "874299f8785ff06be5fbbbc0f43ac411c1dac19e44ef416f242ad8c1fdaaa01a",
+    "proxy_peer.py": "a995af6dd0c7a1f576a1844d92b56cf3a320ec6f1155241ec05173e9c9a915c1"
   }
 }

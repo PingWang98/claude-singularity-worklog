@@ -6,7 +6,6 @@ import ipaddress
 import json
 from pathlib import Path
 import re
-import ssl
 from zoneinfo import ZoneInfo
 
 STORAGE = Path('/mnt/example/runtime-data')
@@ -30,9 +29,8 @@ def public_settings(settings):
     return {key: settings[key] for key in PUBLIC_KEYS}
 
 
-def proxy_json(port, auth, host, path):
-    connection = http.client.HTTPSConnection('127.0.0.1', port, timeout=8,
-                                             context=ssl.create_default_context())
+def proxy_json(peer, auth, host, path):
+    connection = peer.https(8)
     authorization = base64.b64encode(auth.encode()).decode('ascii')
     connection.set_tunnel(host, 443, headers={'Proxy-Authorization': 'Basic ' + authorization})
     try:
@@ -89,7 +87,7 @@ def validate_region(data, address, zone_root=ZONE_ROOT, locale_root=LOCALE_ROOT)
             'locale_root': str(locale_root)}
 
 
-def lookup_region(port, auth, address):
+def lookup_region(peer, auth, address):
     address = ipaddress.ip_address(address)
     if address.version != 4 or not address.is_global:
         raise RuntimeError('region_exit_address_invalid')
@@ -99,7 +97,7 @@ def lookup_region(port, auth, address):
     )
     for host, path in providers:
         try:
-            return validate_region(proxy_json(port, auth, host, path), address)
+            return validate_region(proxy_json(peer, auth, host, path), address)
         except (OSError, ValueError, RuntimeError, http.client.HTTPException):
             continue
     raise RuntimeError('出口地区/时区/语言查询失败；未启动 Claude，无直连或宿主设置回退')

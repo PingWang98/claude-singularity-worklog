@@ -2,7 +2,9 @@
 
 进入已有的 Linux 项目目录，运行 `claude-singularity`，Claude Code 就能读写项目文件、调用现有 Conda 工具，并通过指定代理联网。
 
-**共同作者**　[PingWang98](https://github.com/PingWang98) 和 [Codex（OpenAI）](https://github.com/codex)
+**共同作者**　[PingWang98](https://github.com/PingWang98)、[Codex（OpenAI）](https://github.com/codex) 和 [Claude（Anthropic）](https://github.com/claude)。
+
+Claude 参与了虚拟机环境的对抗测试，也在 Singularity 容器内尝试了直接 DNS、无代理 DoH 和清除代理变量。它在代码审查中指出了宿主代理端口缺少身份校验的问题。[测试结果](docs/VALIDATION.md)
 
 ## 为什么要做这个
 
@@ -19,7 +21,7 @@ claude-singularity
 
 当前目录直接挂载为 `/workspace`，Claude 的编辑和删除立即作用于原文件。一次会话可以共享多个项目。已有 Conda 环境只读，默认进入 base。临时安装的包随会话清理，长期依赖可以放在主项目的专用环境里。[日常使用说明](docs/USAGE.md)
 
-Claude 和子进程通过会话专用代理联网。启动器按代理出口设置时区和语言。运行中检测到出口 IP 变化、代理退出或监测失效，就会切断连接并结束会话。可以单独检查网络，也可以从宿主启动无界面 Chromium 并保存截图和报告。
+Claude 和子进程通过会话专用代理联网。启动器按代理出口设置时区和语言。运行中检测到代理连接身份异常、出口 IP 变化、代理退出或监测失效，就会切断连接并结束会话。可以单独检查网络，也可以从宿主启动无界面 Chromium 并保存截图和报告。
 
 ```bash
 claude-singularity --check
