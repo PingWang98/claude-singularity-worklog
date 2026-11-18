@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude 项目协作"
+  short_description: "在已有项目中运行 Claude，直接共享目录、复用软件并检查网络"
+  default_prompt: "使用 $claude-relay 在当前项目中运行 Claude，完成指定任务。"

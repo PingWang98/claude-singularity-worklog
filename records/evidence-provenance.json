@@ -1,0 +1,29 @@
+{
+  "note": "服务器原始验收文件的相对标识与 SHA-256。",
+  "sources": [
+    {
+      "id": "default-conda-base-20261117/regression.log",
+      "sha256": "3a6ab344c5812087fd9d9fe5e655a3dba78869910059db1fde48823a8e95e265"
+    },
+    {
+      "id": "claude-base-install-20261117T151955/results.json",
+      "sha256": "b49e3f7473c5124e493ed4c589dd86a906190691757336f1f051047bb033c2a8"
+    },
+    {
+      "id": "browser-net-coffee-20261117/results.json",
+      "sha256": "18b381e0261733a15e18ea560c8c3883ffc53ec5424573d8d6b417782f788897"
+    },
+    {
+      "id": "claude-real-dns-20261117T143247/results.json",
+      "sha256": "f0b0411ba01c716fb9c03df9a1a5b2f8fb98cf6ba98e68c87d47f72be109a7c3"
+    },
+    {
+      "id": "persistent-project-tools-20261117/results.json",
+      "sha256": "78b796823e0e3957935d26a684e5ca8634814a5497ee6eeb6335c9781c04461b"
+    },
+    {
+      "id": "claude-region-web-20261117T142911/results.json",
+      "sha256": "894b6900513a01bb66dc2cdc3fd0d43b72b20eb9050f31f1f6f3229d40e0ad38"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+# 完成品验收
+
+实测日期为 2026-11-17，部署文件于 2026-11-18 复核。
+
+## 2026-11-18 复核
+
+本机运行版为 `4971490d2323c4a4`。逐个核对了清单中的 13 个运行文件 SHA-256，另核对镜像里的入口、进程监督和浏览器驱动，均与当时的部署版本一致。
+
+同日依据 Cage 的公开文档和本机部署记录更新了对照表。[防护对照](DESIGN.md#防护对照)、[实测摘要](../records/acceptance-2026-11-17.json)
+
+## 结果
+
+| 检查 | 结果与范围 |
+| --- | --- |
+| 最终回归 | 108 项通过，109.396 秒；含容器、故障清理、目录边界、Conda、浏览器 |
+| 真实 Claude 的默认 base | Python 3.12.2、NumPy 1.26.4、Pandas 2.3.3 来自原 base；尝试以写模式打开原环境中的文件时返回 `EROFS`（只读文件系统） |
+| 真实临时安装 | 普通 pip 经代理安装 cowsay 6.1，默认安装到临时用户目录；API 与 CLI 都成功 |
+| 退出后自动清理 | 第一会话正常退出，第二会话确认模块、命令、旧包文件、旧命令文件、标记共五项全部消失 |
+| 两轮模型工具结果 | 均退出码 0、`is_error=false`、权限拒绝数 0；脚本与真实工具输入输出已复核 |
+| 代理与直连 | 两轮 HTTPS 200；所测 IPv4/IPv6 TCP 与 DNS UDP 直连均 ENETUNREACH，发送 0 字节；移除代理变量的子进程也失败 |
+| 公共 DNS 深入对照 | 三个公共解析器的 IPv4/IPv6 UDP/TCP 53 共六次均被阻断；无代理 DoH 失败，代理 DoH/HTTPS 200 |
+| 持久环境 | 两个独立容器：先安装本地测试小包到项目持久 HOME 的 venv，再不安装直接运行成功；原 base 的 NumPy 可复用 |
+| 浏览器 | Chromium 原生 namespace/PID/network 与 Seccomp-BPF 沙箱开启；实际网页 DNS 未检测到泄露，Google 解析器 |
+| RTC | RTCPeerConnection 可用、offer 创建成功，测试窗口内无 ICE 候选 |
+| 时区语言 | 日本出口下系统/Node/浏览器为 Tokyo、UTC+9、日语；浏览器空白页预检与网页显示一致；离线回归也覆盖 New York/en-US |
+| 搜索工具 | 真实 Claude 成功执行 WebSearch 和 WebFetch，核实 Python 官方发布信息 |
+
+## 测试版本与数据
+
+外部网页评测使用 `bb68abf90443c8f3`。ip.net.coffee 当次评分为 93，显示 DNS 未检测到泄露。部署版 `4971490d2323c4a4` 的 108 项回归包含真实 Chromium 沙箱检查。
+
+- [验收数据](../records/acceptance-2026-11-17.json)记录退出码、网络探测、浏览器结果及各项测试版本。
+- [公开源码校验清单](../records/runtime-manifest.json)列出脱敏后 13 个文件的 SHA-256。上表的实测对象为原部署版本。
+- [原始记录索引](../records/evidence-provenance.json)列出服务器上对应记录的标识和 SHA-256。

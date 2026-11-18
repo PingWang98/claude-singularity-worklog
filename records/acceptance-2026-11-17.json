@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-17",
+  "runtime_release": "4971490d2323c4a4",
+  "regression": {
+    "tests": 108,
+    "seconds": 109.396,
+    "result": "OK"
+  },
+  "real_claude_two_sessions": {
+    "calls": [
+      {
+        "exit_code": 0,
+        "is_error": false,
+        "elapsed_seconds": 91.17,
+        "permission_denials": 0
+      },
+      {
+        "exit_code": 0,
+        "is_error": false,
+        "elapsed_seconds": 33.43,
+        "permission_denials": 0
+      }
+    ],
+    "base": {
+      "python_version": "3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:50:58) [GCC 12.3.0]",
+      "numpy_version": "1.26.4",
+      "pandas_version": "2.3.3",
+      "conda_default_env": "base",
+      "base_write_errno": 30
+    },
+    "temporary_install": {
+      "absent_before": true,
+      "pip_exit": 0,
+      "package_version": "6.1",
+      "package_file": "/tmp/claude-user/lib/python3.12/site-packages/cowsay/__init__.py",
+      "cli_path": "/tmp/claude-user/bin/cowsay",
+      "cli_exit": 0,
+      "marker_created": true
+    },
+    "cleanup": {
+      "package_absent": true,
+      "cli_absent": true,
+      "old_package_file_absent": true,
+      "old_cli_file_absent": true,
+      "marker_absent": true
+    },
+    "network_first_session": {
+      "interfaces": [
+        "lo"
+      ],
+      "proxy_https_status": 200,
+      "direct_probes": [
+        {
+          "target": "1.1.1.1:443",
+          "transport": "tcp",
+          "errno": 101,
+          "bytes_sent": 0,
+          "succeeded": false,
+          "error": "ENETUNREACH"
+        },
+        {
+          "target": "1.1.1.1:53",
+          "transport": "udp",
+          "errno": 101,
+          "bytes_sent": 0,
+          "succeeded": false,
+          "error": "ENETUNREACH"
+        },
+        {
+          "target": "2606:4700:4700::1111:443",
+          "transport": "tcp",
+          "errno": 101,
+          "bytes_sent": 0,
+          "succeeded": false,
+          "error": "ENETUNREACH"
+        },
+        {
+          "target": "2606:4700:4700::1111:53",
+          "transport": "udp",
+          "errno": 101,
+          "bytes_sent": 0,
+          "succeeded": false,
+          "error": "ENETUNREACH"
+        }
+      ],
+      "stripped_child_direct_errno": 101
+    },
+    "network_second_session": {
+      "proxy_https_status": 200,
+      "direct_tcp_errno": 101,
+      "direct_tcp_error": "OSError(101, 'Network is unreachable')",
+      "direct_dns_errno": 101,
+      "direct_dns_bytes_sent": 0,
+      "direct_dns_error": "OSError(101, 'Network is unreachable')"
+    },
+    "independent_stage1_checks": {
+      "real_claude_tools_succeeded": true,
+      "default_base": true,
+      "base_readonly": true,
+      "temporary_userbase": true,
+      "small_package_installed": true,
+      "package_is_temporary": true,
+      "api_and_cli_ran": true,
+      "canary_created": true,
+      "proxy_https_ok": true,
+      "all_four_direct_probes_blocked": true,
+      "stripped_child_cannot_escape": true,
+      "only_loopback": true,
+      "startup_protection_verified": true
+    },
+    "independent_stage2_checks": {
+      "real_claude_tools_succeeded": true,
+      "separate_session": true,
+      "base_still_matches": true,
+      "all_cleanup_observations_true": true,
+      "proxy_still_works": true,
+      "direct_still_blocked": true,
+      "startup_protection_verified": true
+    },
+    "host_base_history_unchanged": true,
+    "protection_code_unchanged": true,
+    "all_passed": true
+  },
+  "browser": {
+    "tested_runtime_release": "bb68abf90443c8f3",
+    "version": "156.0.8078.79",
+    "target": "https://ip.net.coffee/claude/",
+    "native_sandbox": "Sandbox Status\nLayer 1 Sandbox\tNamespace\nPID namespaces\tYes\nNetwork namespaces\tYes\nSeccomp-BPF sandbox\tYes\nSeccomp-BPF sandbox supports TSYNC\tYes\nPtrace Protection with Yama LSM (Broker)\tYes\nPtrace Protection with Yama LSM (Non-broker)\tNo\n\nYou are adequately sandboxed.",
+    "device": {
+      "timezone": "Asia/Tokyo",
+      "intl_locale": "ja-JP",
+      "language": "ja-JP",
+      "languages": [
+        "ja-JP"
+      ],
+      "offset_minutes": 540,
+      "webdriver": true
+    },
+    "dns_resolver_provider": "Google",
+    "dns_site_verdict": "未检测到泄露",
+    "webrtc": {
+      "api_available": true,
+      "candidates": [],
+      "errors": [],
+      "offer_created": true,
+      "gathering_state": "gathering"
+    },
+    "site_score": 93,
+    "site_label": "纯净",
+    "note": "评分和 DNS 标签来自当次 ip.net.coffee 页面。"
+  },
+  "direct_dns": {
+    "exit_code": 0,
+    "is_error": false,
+    "system_resolution": {
+      "success": false,
+      "gai_errno": -3,
+      "gai_error": "Temporary failure in name resolution",
+      "elapsed_s": 0.115
+    },
+    "dns_probes": [
+      {
+        "server": "1.1.1.1",
+        "family": "ipv4",
+        "transport": "udp",
+        "errno": 101,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      },
+      {
+        "server": "1.1.1.1",
+        "family": "ipv4",
+        "transport": "tcp",
+        "errno": 101,
+        "connected": false,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      },
+      {
+        "server": "8.8.8.8",
+        "family": "ipv4",
+        "transport": "udp",
+        "errno": 101,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      },
+      {
+        "server": "8.8.8.8",
+        "family": "ipv4",
+        "transport": "tcp",
+        "errno": 101,
+        "connected": false,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      },
+      {
+        "server": "2606:4700:4700::1111",
+        "family": "ipv6",
+        "transport": "udp",
+        "errno": 101,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      },
+      {
+        "server": "2606:4700:4700::1111",
+        "family": "ipv6",
+        "transport": "tcp",
+        "errno": 101,
+        "connected": false,
+        "bytes_sent": 0,
+        "response_received": false,
+        "error": "Network is unreachable",
+        "elapsed_s": 0.0
+      }
+    ],
+    "direct_doh": {
+      "curl_exit": 7,
+      "http_status": 0,
+      "curl_error": "curl: (7) Failed to connect to 1.1.1.1 port 443 after 0 ms: Couldn't connect to server"
+    },
+    "proxied_doh": {
+      "curl_exit": 0,
+      "http_status": 200,
+      "dns_status": 0,
+      "answer_count": 2
+    },
+    "proxied_https_status": {
+      "curl_exit": 0,
+      "http_status": 200
+    }
+  },
+  "persistent_project_environment": {
+    "passed": true,
+    "stages": [
+      {
+        "stage": "create",
+        "exit_code": 0
+      },
+      {
+        "stage": "reuse_without_install",
+        "exit_code": 0
+      }
+    ],
+    "venv_prefix": "/home/claude/.venvs/project",
+    "existing_base_numpy_reused": true,
+    "second_session_installed_nothing": true,
+    "model_requests": 0
+  },
+  "real_claude_search": {
+    "exit_code": 0,
+    "is_error": false,
+    "native_search_and_fetch_completed": true,
+    "region_checks": {
+      "timezone_matches": true,
+      "locale_matches": true,
+      "language_matches": true,
+      "system_locale_matches": true,
+      "offset_matches": true,
+      "node_locale_matches": true,
+      "node_timezone_matches": true
+    }
+  },
+  "publication": {
+    "raw_logs_included": false,
+    "screenshots_included": false,
+    "real_proxy_configuration_included": false,
+    "credentials_included": false
+  }
+}
